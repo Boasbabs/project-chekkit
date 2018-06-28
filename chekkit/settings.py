@@ -41,6 +41,13 @@ INSTALLED_APPS = [
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'semanticuiforms',
+    'frontend',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +66,10 @@ ROOT_URLCONF = 'chekkit.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            # comment to turn on custom allauth templates
+            'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,6 +152,25 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+
+# -------- CUSTOM SETTINGS ------------
+
+# from all-auth
+SITE_ID = 1
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_SIGNUP_FORM_CLASS='frontend.signupform.SignupForm'
+# ACCOUNT_ADAPTER = 'chekkit.users.adapter.MyCustomAccountAdapter'
+ACCOUNT_LOGOUT_REDIRECT_URL =''
+LOGIN_REDIRECT_URL = ""
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 
 if not DEBUG:
