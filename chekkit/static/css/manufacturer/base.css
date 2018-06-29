@@ -1,0 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:300,400');
+body {
+    font-family: Muli, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: 300;
+}
